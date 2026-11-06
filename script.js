@@ -158,3 +158,32 @@ document.querySelectorAll('.cf-slide img').forEach(img=>{
   img.addEventListener('error',failed);
   if(img.complete&&img.naturalWidth===0&&original) failed();
 });
+
+// ===== Responsive menu (builds itself, no HTML changes needed). Paste at the very BOTTOM of script.js =====
+(function(){
+  const nav=document.querySelector('.nav'); if(!nav) return;
+  const actions=nav.querySelector('.actions'), links=nav.querySelector('nav'), logo=nav.querySelector('.logo');
+  // wrap the name in a tag so it can be styled on small screens
+  [...logo.childNodes].forEach(n=>{
+    if(n.nodeType===3&&n.textContent.trim()){
+      const b=document.createElement('b'); b.className='logo-name'; b.textContent=n.textContent.trim(); logo.replaceChild(b,n);
+    }
+  });
+  // hamburger button
+  const menuBtn=document.createElement('button');
+  menuBtn.type='button'; menuBtn.className='menu-btn'; menuBtn.setAttribute('aria-label','Open menu'); menuBtn.setAttribute('aria-expanded','false');
+  menuBtn.innerHTML='<span></span><span></span><span></span>';
+  actions.appendChild(menuBtn);
+  // "Hire Me" link that appears inside the phone menu
+  const hire=document.createElement('a'); hire.href='#contact'; hire.className='nav-hire'; hire.textContent='Hire Me'; links.appendChild(hire);
+  function setOpen(open){
+    nav.classList.toggle('open',open);
+    menuBtn.setAttribute('aria-expanded',String(open));
+    menuBtn.setAttribute('aria-label',open?'Close menu':'Open menu');
+  }
+  menuBtn.addEventListener('click',e=>{e.stopPropagation();setOpen(!nav.classList.contains('open'));});
+  links.addEventListener('click',e=>{if(e.target.closest('a'))setOpen(false);});
+  document.addEventListener('click',e=>{if(!nav.contains(e.target))setOpen(false);});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')setOpen(false);});
+  addEventListener('resize',()=>{if(innerWidth>760)setOpen(false);});
+})();

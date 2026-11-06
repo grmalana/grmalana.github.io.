@@ -170,7 +170,7 @@ footer{text-align:center;padding:30px;color:var(--muted);font-size:.8rem;border-
 .reveal.show{opacity:1;transform:none}
 
 
-/* ===================== AWARDS (upgraded) ===================== */
+/* ===================== AWARDS ===================== */
 #awards h2{margin-bottom:14px}
 #awards .sub{margin-bottom:28px}
 
@@ -295,4 +295,67 @@ footer{text-align:center;padding:30px;color:var(--muted);font-size:.8rem;border-
 }
 @media (prefers-reduced-motion:reduce){.contact-card,.contact-cta,.contact-cta span,.cc-icon,.cc-out{transition:none}}
 
-@media(max-width:760px){.nav nav{display:none}}
+/* ===================== RESPONSIVE: laptop, tablet and phone =====================
+   Paste this at the very BOTTOM of style.css */
+html,body{max-width:100%;overflow-x:hidden}
+.hero{height:100vh;height:100svh}
+.cf-stage{touch-action:pan-y}
+.logo-name{white-space:nowrap}
+.contact-title{font-size:clamp(2.6rem,11vw,7.4rem)}
+
+/* hamburger button (script.js builds it; hidden on laptop) */
+.menu-btn{display:none;position:relative;width:36px;height:36px;padding:0;border:1px solid var(--line);border-radius:8px;background:none;cursor:pointer}
+.menu-btn span{position:absolute;left:9px;right:9px;height:2px;border-radius:2px;background:var(--text);transition:transform .3s,opacity .3s,top .3s}
+.menu-btn span:nth-child(1){top:11px}
+.menu-btn span:nth-child(2){top:17px}
+.menu-btn span:nth-child(3){top:23px}
+.nav.open .menu-btn span:nth-child(1){top:17px;transform:rotate(45deg)}
+.nav.open .menu-btn span:nth-child(2){opacity:0}
+.nav.open .menu-btn span:nth-child(3){top:17px;transform:rotate(-45deg)}
+.nav-hire{display:none}
+
+/* small laptops / tablets */
+@media(max-width:900px){
+  .nav nav{gap:18px}
+}
+
+/* tablets and phones: menu button + dropdown links */
+@media(max-width:760px){
+  .menu-btn{display:block}
+  .nav nav{display:none;position:absolute;top:calc(100% + 8px);left:0;right:0;flex-direction:column;gap:4px;padding:12px;
+    background:color-mix(in srgb,var(--panel) 96%,transparent);backdrop-filter:blur(14px);
+    border:1px solid var(--line);border-radius:16px;box-shadow:0 20px 40px rgba(0,0,0,.35);font-size:.95rem}
+  .nav.open nav{display:flex}
+  .nav nav a{padding:12px 14px;border-radius:10px;color:var(--text)}
+  .nav nav a:hover{background:var(--line)}
+  .nav nav .nav-hire{display:block;margin-top:6px;text-align:center;font-weight:600;background:var(--accent);color:var(--on-accent)}
+  .nav nav .nav-hire:hover{background:var(--accent-hover)}
+}
+
+/* phones */
+@media(max-width:640px){
+  section:not(.hero){padding:64px 18px}
+  h2{margin-bottom:28px}
+  .work-head{margin-bottom:34px}
+  .btn.more{margin-top:6px}
+  .mag-head{margin-top:70px}
+  .cf-stage{height:clamp(160px,46vw,340px)}
+  .cf-slide{width:min(560px,78%)}
+  .coverflow.portrait{--ph:clamp(300px,82vw,380px)}
+  .cf-info{margin-top:30px}
+  .about-title{margin-bottom:30px}
+  .stats{gap:12px 28px}
+  .about-bottom{margin-top:40px}
+  .award-count{margin-bottom:30px}
+  .award-body{padding:30px 20px 22px}
+  .contact-card{padding:22px 18px}
+}
+
+/* very small phones: keep the bar tidy (Hire Me moves into the menu) */
+@media(max-width:520px){
+  .actions>.btn{display:none}
+  .nav nav .nav-hire{display:block}
+}
+@media(min-width:521px) and (max-width:760px){
+  .nav nav .nav-hire{display:none}
+}
